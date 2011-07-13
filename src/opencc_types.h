@@ -24,7 +24,12 @@ extern "C" {
 #endif
 
 #include <stddef.h>
+
+#ifdef MS_CPP
+#include "pstdint.h"
+#else
 #include <stdint.h>
+#endif
 
 typedef void * opencc_t;
 
