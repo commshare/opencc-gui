@@ -1,0 +1,13 @@
+INTRODUCTION
+This project a fork of opencc
+http://code.google.com/p/opencc/
+
+REQUIREMENTS
+1. MinGW (gcc and g++ are required, tested with gcc-4.5.2) and msys 1.0
+2. cmake (2.6 or above)
+3. Qt (tested with 4.7.3)
+
+INSTALLATION
+1. run ./mingw_build.sh in msys shell (ensure cmake and qmake are in the path)
+2. the binary will be build in folder 'build'
+3. run opencc-gui.ext in folder 'build'
