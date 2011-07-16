@@ -1,0 +1,5 @@
+Makefile*
+release/*
+debug/*
+ui_*.h
+object_script.opencc-gui.*
