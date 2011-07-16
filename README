@@ -1,6 +1,12 @@
 INTRODUCTION
-This project a fork of opencc
-http://code.google.com/p/opencc/
+This project is a fork of opencc (http://code.google.com/p/opencc/) which developed by BYVoid (https://github.com/BYVoid)
+
+This project consists of the followings:
+1. opencc (https://github.com/BYVoid/OpenCC)
+2. uchardet (https://github.com/BYVoid/uchardet)
+3. opencc-gui (https://github.com/BYVoid/opencc-gui)
+4. opencc dictionary and config
+5. scripts (build and update dictionary)
 
 REQUIREMENTS
 1. MinGW (gcc and g++ are required, tested with gcc-4.5.2) and msys 1.0
