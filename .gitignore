@@ -1,5 +1,12 @@
-Makefile*
-release/*
-debug/*
-ui_*.h
-object_script.opencc-gui.*
+build/*
+*Makefile*
+*CmakeCache.txt
+*cmake_install.cmake
+opencc-gui/ui_*.h
+opencc-gui/object_script.opencc-gui.*
+opencc-gui/debug/*
+opencc-gui/release/*
+opencc/build/*
+uchardet/object_script.uchardet.*
+uchardet/debug/*
+uchardet/release/*
