@@ -26,11 +26,3 @@ TRANSLATIONS += l10n/zhs.ts \
 	l10n/zht.ts
 
 OTHER_FILES +=
-
-win32-msvc2005 {
-	HEADERS += src/pstdint.h
-}
-
-win32-msvc2008 {
-	HEADERS += src/pstdint.h
-}
