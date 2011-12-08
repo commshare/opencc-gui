@@ -19,8 +19,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "textreader.h"
-
 #include <QMainWindow>
 #include <QTranslator>
 
@@ -36,11 +34,14 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+protected:
+    void dragEnterEvent(QDragEnterEvent *event);
+    void dropEvent(QDropEvent *event);
+
 private:
     enum Language {ENG, ZHT, ZHS};
     Ui::MainWindow *ui;
     QTranslator * trans;
-    TextReader * textreader;
 
     Language language;
     void setDefaultLanguage();

@@ -29,12 +29,12 @@
 #include <QTextCodec>
 #include <QLocale>
 #include <QMessageBox>
+#include <QUrl>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    trans(new QTranslator),
-    textreader(new TextReader)
+    trans(new QTranslator)
 {
     ui->setupUi(this);
     setDefaultLanguage();
@@ -44,7 +44,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete trans;
-    delete textreader;
 }
 
 void MainWindow::convertSlot()
@@ -55,9 +54,16 @@ void MainWindow::convertSlot()
         return;
     }
 
-    const char *config = ui->rbToChs->isChecked()? OPENCC_DEFAULT_CONFIG_TRAD_TO_SIMP
-                                                 : OPENCC_DEFAULT_CONFIG_SIMP_TO_TRAD;
-    Converter conv(config);
+    QString config_file = ui->cbConfig->itemData(ui->cbConfig->currentIndex()).toString();
+    QByteArray config_file_utf8 = config_file.toUtf8();
+
+    Converter conv(config_file_utf8.data());
+    if (!conv.config_loaded())
+    {
+        QMessageBox::critical(this, tr("OpenCC"), tr("Failed to load opencc configuration."));
+        return;
+    }
+
     QString txt_in = ui->textEdit->toPlainText();
     QString txt_out = conv.convert(txt_in);
     ui->textEdit->setPlainText(txt_out);
@@ -68,7 +74,7 @@ void MainWindow::loadSlot()
     FileSelector fs(this);
     if (fs.open() == QDialog::Accepted)
     {
-        ui->textEdit->setPlainText(textreader->readAll(fs.selectedFile()));
+        ui->textEdit->loadFile(fs.selectedFile());
     }
 }
 
@@ -158,4 +164,37 @@ void MainWindow::changeLanguage()
         ui->actionEnglish->setChecked(true);
     }
     ui->retranslateUi(this);
+
+    ui->cbConfig->clear();
+    ui->cbConfig->addItem(tr("Simplified to Traditional"), "zhs2zht.ini");
+    ui->cbConfig->addItem(tr("Traditional to Simplified"), "zht2zhs.ini");
+    ui->cbConfig->addItem(tr("Simplified to Taiwan"), "zhs2zhtw_vp.ini");
+    ui->cbConfig->addItem(tr("Simplified to Taiwan (only variants)"), "zhs2zhtw_v.ini");
+    ui->cbConfig->addItem(tr("Simplified to Taiwan (only phrases)"), "zhs2zhtw_p.ini");
+    ui->cbConfig->addItem(tr("Traditional to Taiwan"), "zht2zhtw_vp.ini");
+    ui->cbConfig->addItem(tr("Traditional to Taiwan (only variants)"), "zht2zhtw_v.ini");
+    ui->cbConfig->addItem(tr("Traditional to Taiwan (only phrases)"), "zht2zhtw_p.ini");
+    ui->cbConfig->addItem(tr("Taiwan to Traditional"), "zhtw2zht.ini");
+    ui->cbConfig->addItem(tr("Taiwan to Simplified"), "zhtw2zhs.ini");
+    ui->cbConfig->addItem(tr("Taiwan to Mainland China (Simplified)"), "zhtw2zhcn_s.ini");
+    ui->cbConfig->addItem(tr("Taiwan to Mainland China (Traditional)"), "zhtw2zhcn_t.ini");
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (event->mimeData()->hasUrls())
+    {
+        event->acceptProposedAction();
+    }
+}
+
+void MainWindow::dropEvent(QDropEvent *event)
+{
+    QList<QUrl> urls = event->mimeData()->urls();
+    if (urls.isEmpty())
+        return;
+    QString filename = urls.first().toLocalFile();
+    if (filename.isEmpty())
+        return;
+    ui->textEdit->loadFile(filename);
 }
