@@ -29,7 +29,10 @@ mv opencc-gui/release/opencc-gui.exe build
 mv opencc-gui/l10n/*.qm build
 cp data/*.bat build
 cp data/*.ini build
-cp data/*.txt build/dictionary
+cp data/simp_to_trad_*.txt build/dictionary
+cp data/trad_to_simp_*.txt build/dictionary
+cp data/from_*.txt build/
+cp data/to_*.txt build/
 
 # update dictionary
 cd build

@@ -19,7 +19,6 @@
 #ifndef __OPENCC_DICTIONARY_TEXT_H_
 #define __OPENCC_DICTIONARY_TEXT_H_
 
-#include <stdint.h>
 #include "abstract.h"
 
 dictionary_t dictionary_text_open(const char * filename);

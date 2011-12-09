@@ -1,4 +1,4 @@
-﻿/*
+/*
 * Open Chinese Convert
 *
 * Copyright 2010 BYVoid <byvoid.kcp@gmail.com>
@@ -49,7 +49,8 @@ int parse_entry(const char * buff, entry * entry_i)
 		return -1;
 	length = pbuff - buff;
 
-	ucs4_t * ucs4_buff = utf8_to_ucs4(buff, length);
+	ucs4_t * ucs4_buff;
+	ucs4_buff = utf8_to_ucs4(buff, length);
 	if (ucs4_buff == (ucs4_t *) -1)
 		return -1;
 	entry_i->key = (ucs4_t *) malloc((length + 1) * sizeof(ucs4_t));

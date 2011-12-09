@@ -16,7 +16,18 @@
 * limitations under the License.
 */
 
-#include "opencc_dict.h"
+#include "../encoding.h"
+#include "../utils.h"
+#include "../dictionary_group.h"
+#include "../dictionary/datrie.h"
+#include "../dictionary/text.h"
+#include <unistd.h>
+#include <locale.h>
+
+#define DATRIE_SIZE 1000000
+#define DATRIE_WORD_MAX_COUNT 500000
+#define DATRIE_WORD_MAX_LENGTH 32
+#define BUFFER_SIZE 1024
 
 typedef struct
 {
